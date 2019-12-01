@@ -1,0 +1,23 @@
+{
+  "name": "projeto_psw-backend",
+  "version": "1.0.0",
+  "description": "projeto rose-bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LcnJunior37/Projeto_psw-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LcnJunior37/Projeto_psw-backend/issues"
+  },
+  "homepage": "https://github.com/LcnJunior37/Projeto_psw-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
