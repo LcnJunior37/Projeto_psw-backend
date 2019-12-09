@@ -1,6 +1,7 @@
 const express = require("express");
 const routerUser = express.Router();
 const User = require("../db/userDB.js");
+const teste = require("../db/teste.js");
 
 routerUser.get("/", async (req, res, next) => {
   try {
@@ -22,22 +23,19 @@ routerUser.get("/:id", async (req, res, next) => {
 });
 routerUser.post("/", (req, res, next) => {
   try {
-    const us = [
+    let us = [
       (codUsuario = req.body.codUsuario),
-      (tipo = req.bodytipo),
+      (tipo = req.body.tipo),
       (nome = req.body.nome),
       (senha = req.body.senha)
     ];
-    User.createUser(us);
-    /*  
-    let user = req.body;
-    console.log("@ " + req);
-    let result = User.createUser(user);
-    console.log("**");
-    res.json(result); */
+    let result = teste.createUser(us);
+    console.log(req.body);
+    res.json(result);
   } catch (e) {
-    /* console.log(e);
-    res.sendStatus(500); */
+    console.log(e);
+    res.sendStatus(500);
   }
 });
+
 module.exports = routerUser;

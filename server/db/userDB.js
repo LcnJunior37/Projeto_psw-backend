@@ -29,7 +29,7 @@ userDB.getUser = id => {
   });
 };
 
-userDB.createUser = user => {
+/* userDB.createUser = user => {
   //console.log(user.codUsuario);
 
   connDB.query("INSERT INTO usuario VALUES ?", [user], (err, results) => {
@@ -38,6 +38,6 @@ userDB.createUser = user => {
     }
     return resolve(null);
   });
-};
+}; */
 
 module.exports = userDB;
