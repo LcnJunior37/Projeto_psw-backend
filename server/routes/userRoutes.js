@@ -24,10 +24,10 @@ routerUser.get("/:id", async (req, res, next) => {
 routerUser.post("/", (req, res, next) => {
   try {
     let us = [
-      (codUsuario = req.body.codUsuario),
-      (tipo = req.body.tipo),
-      (nome = req.body.nome),
-      (senha = req.body.senha)
+      [codUsuario = req.body.codUsuario],
+      [tipo = req.body.tipo],
+      [nome = req.body.nome],
+      [senha = req.body.senha]
     ];
     let result = teste.createUser(us);
     console.log(req.body);
