@@ -3,7 +3,7 @@ const routerUser = express.Router();
 const User = require("../db/userDB.js");
 const teste = require("../db/teste.js");
 
-routerUser.get("/", async (req, res, next) => {
+routerUser.get("/users", async (req, res, next) => {
   try {
     let result = await User.all();
     res.json(result);
@@ -12,7 +12,8 @@ routerUser.get("/", async (req, res, next) => {
     res.sendStatus(500);
   }
 });
-routerUser.get("/:id", async (req, res, next) => {
+
+routerUser.get('/users/:id', async (req, res, next) => {
   try {
     let result = await User.getUser(req.params.id);
     res.json(result);
@@ -21,13 +22,14 @@ routerUser.get("/:id", async (req, res, next) => {
     res.sendStatus(500);
   }
 });
-routerUser.post("/", (req, res, next) => {
+
+routerUser.post('/users', (req, res, next) => {
   try {
     let us = [
-      [codUsuario = req.body.codUsuario],
-      [tipo = req.body.tipo],
-      [nome = req.body.nome],
-      [senha = req.body.senha]
+      [(codUsuario = req.body.codUsuario)],
+      [(tipo = req.body.tipo)],
+      [(nome = req.body.nome)],
+      [(senha = req.body.senha)]
     ];
     let result = teste.createUser(us);
     console.log(req.body);
