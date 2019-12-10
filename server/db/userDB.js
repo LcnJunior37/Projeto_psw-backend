@@ -29,15 +29,19 @@ userDB.getUser = id => {
   });
 };
 
-/* userDB.createUser = user => {
-  //console.log(user.codUsuario);
-
-  connDB.query("INSERT INTO usuario VALUES ?", [user], (err, results) => {
-    if (err) {
-      return reject(err);
-    }
-    return resolve(null);
+userDB.createUser = user => {
+  return new Promise((resolve, reject) => {
+    console.log(user.codUsuario);
+    connDB.query(
+      "INSERT INTO usuario (codUsuario, tipo, nome, senha) VALUES ?",
+      [user],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve("Usuario inserido com sucesso");
+      }
+    );
   });
-}; */
-
+};
 module.exports = userDB;

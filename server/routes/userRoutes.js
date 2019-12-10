@@ -1,7 +1,6 @@
 const express = require("express");
 const routerUser = express.Router();
 const User = require("../db/userDB.js");
-const teste = require("../db/teste.js");
 
 routerUser.get("/users", async (req, res, next) => {
   try {
@@ -32,8 +31,9 @@ routerUser.post('/users', (req, res, next) => {
       [(nome = req.body.nome)],
       [(senha = req.body.senha)]
     ];
-    let result = teste.createUser(us);
-    console.log(req.body);
+
+    let result = await User.createUser(us);
+
     res.json(result);
   } catch (e) {
     console.log(e);
