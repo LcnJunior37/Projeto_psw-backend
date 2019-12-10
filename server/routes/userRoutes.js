@@ -1,7 +1,6 @@
 const express = require("express");
 const routerUser = express.Router();
 const User = require("../db/userDB.js");
-const teste = require("../db/teste.js");
 
 routerUser.get("/users", async (req, res, next) => {
   try {
@@ -26,14 +25,15 @@ routerUser.get("/users/:id", async (req, res, next) => {
 routerUser.post("/users", async (req, res, next) => {
   try {
     let us = [
-      [(codUsuario = req.body.codUsuario)],
-      [(tipo = req.body.tipo)],
-      [(nome = req.body.nome)],
-      [(senha = req.body.senha)]
+      [
+        (codUsuario = req.body.codUsuario),
+        (tipo = req.body.tipo),
+        (nome = req.body.nome),
+        (senha = req.body.senha)
+      ]
     ];
 
-    console.log(req.body);
-    let result = await teste.createUser(us);
+    let result = await User.createUser(us);
 
     res.json(result);
   } catch (e) {
