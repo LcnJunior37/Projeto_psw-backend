@@ -1,12 +1,13 @@
 const mysql = require("mysql");
+require('dotenv').config();
+
 const conn = mysql.createPool({
-  connectionLimit: 10,
-  password: "",
-  user: "root",
-  database: "project_rose",
-  host: "localhost",
-  port: "3306"
+  port: process.env.DATABASE_PORT,
+  host: process.env.DATABASE_HOST,
+  database: process.env.DATABASE_NAME,
+  user: process.env.DATABASE_USER,
+  password: process.env.DATABASE_PASSWORD,
+  connectionLimit: process.env.DATABASE_CONNECTION_LIMIT
 });
 
-//mysql.query();
 module.exports = conn;

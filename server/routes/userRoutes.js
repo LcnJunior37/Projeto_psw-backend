@@ -22,7 +22,7 @@ routerUser.get('/users/:id', async (req, res, next) => {
   }
 });
 
-routerUser.post('/users', (req, res, next) => {
+routerUser.post('/users', async (req, res, next) => {
   console.log(req.body);
   try {
     let us = [
@@ -32,6 +32,7 @@ routerUser.post('/users', (req, res, next) => {
       [(senha = req.body.senha)]
     ];
 
+    console.log(us);
     let result = await User.createUser(us);
 
     res.json(result);
