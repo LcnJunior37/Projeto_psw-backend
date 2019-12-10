@@ -1,4 +1,4 @@
-const routesUser = require("./routes/userRoutes.js");
+const routesUser = require("./routes/user.router");
 const bodyParser = require('body-parser');
 const express = require("express");
 const app = express();

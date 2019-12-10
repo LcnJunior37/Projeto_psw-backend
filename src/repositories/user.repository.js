@@ -1,10 +1,9 @@
-const connDB = require("./connDB.js");
+const databaseService = require('../services/database.service');
 
-let userDB = {};
-userDB.all = () => {
+const findAll = () => {
   return new Promise((resolve, reject) => {
-    connDB.query(
-      "SELECT codUsuario, tipo, nome FROM usuario",
+    databaseService.query(
+      'SELECT codUsuario, tipo, nome FROM usuario',
       (err, results) => {
         if (err) {
           return reject(err);
@@ -13,12 +12,12 @@ userDB.all = () => {
       }
     );
   });
-};
+}
 
-userDB.getUser = id => {
+const findById = async id => {
   return new Promise((resolve, reject) => {
-    connDB.query(
-      "SELECT codUsuario, tipo, nome FROM usuario where codUsuario = ?",
+    databaseService.query(
+      'SELECT codUsuario, tipo, nome FROM usuario where codUsuario = ?',
       [id],
       (err, results) => {
         if (err) {
@@ -28,19 +27,24 @@ userDB.getUser = id => {
       }
     );
   });
-};
+}
 
-userDB.createUser = user => {
+const create = async user => {
   return new Promise((resolve, reject) => {
-    connDB.query(
+    databaseService.query(
       `INSERT INTO usuario (codUsuario, tipo, nome, senha) VALUES (${user.codUsuario},  \'${user.tipo}\', \'${user.nome}\', \'${user.senha}\')`,
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve('Usuario inserido com sucesso');
+        return resolve(user);
       }
     );
   });
-};
-module.exports = userDB;
+}
+
+module.exports = {
+  findAll,
+  findById,
+  create
+}

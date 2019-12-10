@@ -1,16 +1,15 @@
 {
   "name": "rose-project",
   "version": "1.0.0",
-  "description": "",
-  "main": "server/server.js",
+  "description": "A Project for Ms. Rose use",
+  "main": "src/app.js",
   "scripts": {
-    "start": "node server/server.js",
-    "dev": "npx nodemon server/server.js -w server"
+    "start": "node .",
+    "dev": "nodemon ."
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "3.0.7",
     "body-parser": "1.19.0",
     "dotenv": "8.2.0",
     "express": "4.17.1",
