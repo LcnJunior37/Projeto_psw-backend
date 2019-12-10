@@ -14,6 +14,7 @@ userDB.all = () => {
     );
   });
 };
+
 userDB.getUser = id => {
   return new Promise((resolve, reject) => {
     connDB.query(
@@ -31,15 +32,13 @@ userDB.getUser = id => {
 
 userDB.createUser = user => {
   return new Promise((resolve, reject) => {
-    console.log(user.codUsuario);
     connDB.query(
-      "INSERT INTO usuario (codUsuario, tipo, nome, senha) VALUES ?",
-      [user],
+      `INSERT INTO usuario (codUsuario, tipo, nome, senha) VALUES (${user.codUsuario},  \'${user.tipo}\', \'${user.nome}\', \'${user.senha}\')`,
       (err, results) => {
         if (err) {
           return reject(err);
         }
-        return resolve("Usuario inserido com sucesso");
+        return resolve('Usuario inserido com sucesso');
       }
     );
   });

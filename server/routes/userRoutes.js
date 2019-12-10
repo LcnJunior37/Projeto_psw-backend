@@ -5,9 +5,9 @@ const User = require("../db/userDB.js");
 routerUser.get("/users", async (req, res, next) => {
   try {
     let result = await User.all();
-    res.json(result);
+    res.send(result);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.sendStatus(500);
   }
 });
@@ -15,29 +15,26 @@ routerUser.get("/users", async (req, res, next) => {
 routerUser.get('/users/:id', async (req, res, next) => {
   try {
     let result = await User.getUser(req.params.id);
-    res.json(result);
+    res.send(result);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.sendStatus(500);
   }
 });
 
 routerUser.post('/users', async (req, res, next) => {
-  console.log(req.body);
   try {
-    let us = [
-      [(codUsuario = req.body.codUsuario)],
-      [(tipo = req.body.tipo)],
-      [(nome = req.body.nome)],
-      [(senha = req.body.senha)]
-    ];
+    const us = {
+      codUsuario: req.body.codUsuario,
+      tipo: req.body.tipo,
+      nome: req.body.nome,
+      senha: req.body.senha
+    };
 
-    console.log(us);
-    let result = await User.createUser(us);
-
-    res.json(result);
+    const result = await User.createUser(us);
+    res.send(result);
   } catch (e) {
-    console.log(e);
+    console.error(e);
     res.sendStatus(500);
   }
 });
