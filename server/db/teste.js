@@ -13,6 +13,7 @@ let userDB = {};
 }; */
 userDB.createUser = user => {
   return new Promise((resolve, reject) => {
+    console.log(user.codUsuario);
     connDB.query("INSERT INTO usuario VALUES ?", [user], (err, results) => {
       if (err) {
         return reject(err);

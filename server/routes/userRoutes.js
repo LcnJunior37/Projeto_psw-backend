@@ -13,7 +13,7 @@ routerUser.get("/users", async (req, res, next) => {
   }
 });
 
-routerUser.get('/users/:id', async (req, res, next) => {
+routerUser.get("/users/:id", async (req, res, next) => {
   try {
     let result = await User.getUser(req.params.id);
     res.json(result);
@@ -23,7 +23,7 @@ routerUser.get('/users/:id', async (req, res, next) => {
   }
 });
 
-routerUser.post('/users', (req, res, next) => {
+routerUser.post("/users", async (req, res, next) => {
   try {
     let us = [
       [(codUsuario = req.body.codUsuario)],
@@ -31,8 +31,10 @@ routerUser.post('/users', (req, res, next) => {
       [(nome = req.body.nome)],
       [(senha = req.body.senha)]
     ];
-    let result = teste.createUser(us);
+
     console.log(req.body);
+    let result = await teste.createUser(us);
+
     res.json(result);
   } catch (e) {
     console.log(e);
