@@ -51,10 +51,8 @@ const create = user => {
 }
 
 const updateOne = (id, dataToUpdate) => {
-  console.log(id, dataToUpdate);
   const keys = Object.keys(dataToUpdate);
   const values = Object.values(dataToUpdate);
-  console.log(values);
 
   const UPDATE = `UPDATE usuario SET `;
 
