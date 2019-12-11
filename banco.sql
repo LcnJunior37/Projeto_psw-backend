@@ -249,10 +249,10 @@ DROP TABLE IF EXISTS `veiculo`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `veiculo` (
   `codVeiculo` int(11) NOT NULL AUTO_INCREMENT,
-  `Matricula` varchar(100) DEFAULT NULL,
+  `Placa` varchar(100) DEFAULT NULL,
   `Modelo` varchar(50) DEFAULT NULL,
   `Ano` year(4) NOT NULL,
-  `Tipo` varchar(15) NOT NULL,
+  `Tipo` varchar(20) NOT NULL,
   PRIMARY KEY (`codVeiculo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
