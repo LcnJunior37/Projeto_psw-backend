@@ -65,9 +65,7 @@ const updateUser = async (req, res) => {
         requestBody.tipo
     ) {
       try {
-        if (requestBody.senha) {
-          requestBody.senha = hashPassword(requestBody.senha);
-        }
+        
         const id = req.params.id;
         const dataToUpdate = requestBody;
         await userRepository.updateOne(id, dataToUpdate);
@@ -89,16 +87,14 @@ const deleteUser = async (req, res) => {
     const id = req.params.id;
     await userRepository.deleteOne(id);
 
-    res.send({ msg: `Usuario com id ${id} deletado.` });
+    res.send({ msg: `Veiculo com id ${id} deletado.` });
   } catch (err) {
      console.error(err);
      res.sendStatus(500);
   }
 };
 
-const encryptPassword = password => {
-  return bcrypt.hashSync(password, 10);
-};
+
 
 module.exports ={
   findAllUsers,
