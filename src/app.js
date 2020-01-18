@@ -29,8 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/user", routesUser);
-app.use("/vehicle", routesVehicle);
+app.use("/", routesUser);
+app.use("/", routesVehicle);
 
 app.use((req, res, next) => {
   res.status(404);
@@ -42,3 +42,4 @@ app.listen(port, () =>
 );
 
 module.exports = app;
+//module.exports.find();

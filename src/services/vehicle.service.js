@@ -23,22 +23,28 @@ const findVehicleById = async (req, res) => {
 
 const createVehicle = async (req, res) => {
   const requestBody = req.body;
+  let cap = req.body.capacidade;
+  if (!cap) {
+    cap = 0;
+  }
+  console.log(requestBody);
   if (
     requestBody.codVeiculo &&
-    requestBody.placa &&
-    requestBody.modelo &&
-    requestBody.ano &&
-    requestBody.tipo
+    requestBody.Placa &&
+    requestBody.Modelo &&
+    requestBody.Ano &&
+    requestBody.Tipo
   ) {
     try {
       // const senhaEncriptada = encryptPassword(req.body.senha);
 
       const veh = {
         codVeiculo: req.body.codVeiculo,
-        placa: req.body.placa,
-        modelo: req.body.modelo,
-        ano: req.body.ano,
-        tipo: req.body.tipo
+        placa: req.body.Placa,
+        modelo: req.body.Modelo,
+        ano: req.body.Ano,
+        tipo: req.body.Tipo,
+        capacidade: cap
       };
 
       const result = await vehicleRepository.create(veh);
@@ -83,7 +89,7 @@ const updateVehicle = async (req, res) => {
 const deleteVehicle = async (req, res) => {
   try {
     const id = req.params.id;
-    await userRepository.deleteOne(id);
+    await vehicleRepository.deleteOne(id);
 
     res.send({ msg: `Veiculo com id ${id} deletado.` });
   } catch (err) {
