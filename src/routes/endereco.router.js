@@ -1,15 +1,15 @@
-const enderecoService = require('../services/endereco.service')
-const express = require('express');
+const enderecoService = require("../services/endereco.service");
+const express = require("express");
 const enderecoRouter = express.Router();
 
-enderecoRouter.get('/users', enderecoService.findAllEndereco);
+enderecoRouter.get("/enderecos", enderecoService.findAllEndereco);
 
-enderecoRouter.get('/users/:id', enderecoService.findEnderecoById);
+enderecoRouter.get("/enderecos/:id", enderecoService.findEnderecoById);
 
-enderecoRouter.post('/users', enderecoService.createEndereco);
+enderecoRouter.post("/enderecos", enderecoService.createEndereco);
 
-enderecoRouter.put('/users/:id', enderecoService.updateEnderecor);
+enderecoRouter.put("/enderecos/:id", enderecoService.updateEndereco);
 
-enderecoRouter.delete('/users/:id', enderecoService.deleteEndereco);
+enderecoRouter.delete("/enderecos/:id", enderecoService.deleteEndereco);
 
 module.exports = enderecoRouter;

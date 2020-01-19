@@ -1,23 +1,20 @@
-const databaseService = require('../services/database.service');
+const databaseService = require("../services/database.service");
 
 const findAll = () => {
   return new Promise((resolve, reject) => {
-    databaseService.query(
-      'SELECT codEndereco, tipo, nome FROM endereco',
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(results);
+    databaseService.query("SELECT * FROM endereco", (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(results);
+    });
   });
-}
+};
 
 const findById = id => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      'SELECT codEndereco, tipo, nome FROM endereco where codEndereco = ?',
+      "SELECT * FROM endereco where codEnd = ?",
       [id],
       (err, results) => {
         if (err) {
@@ -27,19 +24,21 @@ const findById = id => {
       }
     );
   });
-}
+};
 
 const create = end => {
-  const us = [
-    codEndereco = end.codEndereco,
-    log = end.log, //logradouro
-    nome = end.nome,
-    num = end.num
+  const endereco = [
+    (codEnd = end.codEnd),
+    (log = end.logradouro),
+    (numero = end.numero),
+    (cep = end.cep),
+    (complemento = end.complemento),
+    (bairro = end.bairro)
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
-      'INSERT INTO endereco (codEndereco, log, nome, num) VALUES (?)',
-      [us],
+      "INSERT INTO endereco (codEnd,logradouro,numero,cep,complemento,bairro) VALUES (?)",
+      [endereco],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -48,42 +47,39 @@ const create = end => {
       }
     );
   });
-}
+};
 
 const updateOne = (id, dataToUpdate) => {
   const keys = Object.keys(dataToUpdate);
   const values = Object.values(dataToUpdate);
 
-  const UPDATE = `UPDATE usuario SET `;
+  const UPDATE = `UPDATE endereco SET `;
 
-  let SET = '';
+  let SET = "";
   keys.forEach((r, index) => {
-    SET+=`${r} = \'${values[index]}\', `;
-  })
+    SET += `${r} = \'${values[index]}\', `;
+  });
 
-  SET = SET.replace(/, $/, ' ');
-  
-  const WHERE = `WHERE codEndereco = ${id}`;
+  SET = SET.replace(/, $/, " ");
 
-  const sqlQuery = UPDATE + SET + WHERE;;
+  const WHERE = `WHERE codEnd = ${id}`;
+
+  const sqlQuery = UPDATE + SET + WHERE;
 
   return new Promise((resolve, reject) => {
-    databaseService.query(
-      sqlQuery,
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(dataToUpdate);
+    databaseService.query(sqlQuery, (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(dataToUpdate);
+    });
   });
 };
 
 const deleteOne = async id => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      `DELETE FROM endereco WHERE codEndereco = ${id}`,
+      `DELETE FROM endereco WHERE codEnd = ${id}`,
       (err, results) => {
         if (err) {
           return reject(err);
@@ -100,4 +96,4 @@ module.exports = {
   create,
   updateOne,
   deleteOne
-}
+};
