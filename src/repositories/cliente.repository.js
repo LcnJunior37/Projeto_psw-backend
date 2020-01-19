@@ -1,23 +1,20 @@
-const databaseService = require('../services/database.service');
+const databaseService = require("../services/database.service");
 
 const findAll = () => {
   return new Promise((resolve, reject) => {
-    databaseService.query(
-      'SELECT codCliente, tipo, nome FROM cliente',
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(results);
+    databaseService.query("SELECT * FROM cliente", (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(results);
+    });
   });
-}
+};
 
 const findById = id => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      'SELECT codCliente, tipo, nome FROM cliente where codCliente = ?',
+      "SELECT * FROM cliente where codCliente = ?",
       [id],
       (err, results) => {
         if (err) {
@@ -27,22 +24,20 @@ const findById = id => {
       }
     );
   });
-}
+};
 
 const create = cliente => {
-  const us = [
-  
-    codCliente = cliente.codCliente,
-    CNPJ  = cliente.CNPJ,
-    NomeEmpresa = cliente.NomeEmpresa,
-    Email = cliente.Email,
-    TelefoneContato = cliente.TelefoneContato
-
+  const cli = [
+    (codCliente = cliente.codCliente),
+    (CNPJ = cliente.CNPJ),
+    (NomeEmpresa = cliente.NomeEmpresa),
+    (Email = cliente.Email),
+    (TelefoneContato = cliente.TelefoneContato)
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
-      'INSERT INTO cliente (codCliente, CNPJ, NomeEmpresa, Email, TelefoneContato) VALUES (?)',
-      [us],
+      "INSERT INTO cliente (codCliente, CNPJ, NomeEmpresa, Email, TelContato) VALUES (?)",
+      [cli],
       (err, results) => {
         if (err) {
           return reject(err);
@@ -51,7 +46,7 @@ const create = cliente => {
       }
     );
   });
-}
+};
 
 const updateOne = (id, dataToUpdate) => {
   const keys = Object.keys(dataToUpdate);
@@ -59,27 +54,24 @@ const updateOne = (id, dataToUpdate) => {
 
   const UPDATE = `UPDATE cliente SET `;
 
-  let SET = '';
+  let SET = "";
   keys.forEach((r, index) => {
-    SET+=`${r} = \'${values[index]}\', `;
-  })
+    SET += `${r} = \'${values[index]}\', `;
+  });
 
-  SET = SET.replace(/, $/, ' ');
-  
+  SET = SET.replace(/, $/, " ");
+
   const WHERE = `WHERE codCliente = ${id}`;
 
-  const sqlQuery = UPDATE + SET + WHERE;;
+  const sqlQuery = UPDATE + SET + WHERE;
 
   return new Promise((resolve, reject) => {
-    databaseService.query(
-      sqlQuery,
-      (err, results) => {
-        if (err) {
-          return reject(err);
-        }
-        return resolve(dataToUpdate);
+    databaseService.query(sqlQuery, (err, results) => {
+      if (err) {
+        return reject(err);
       }
-    );
+      return resolve(dataToUpdate);
+    });
   });
 };
 
@@ -103,4 +95,4 @@ module.exports = {
   create,
   updateOne,
   deleteOne
-}
+};
