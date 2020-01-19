@@ -32,7 +32,7 @@ const create = cliente => {
     (CNPJ = cliente.CNPJ),
     (NomeEmpresa = cliente.NomeEmpresa),
     (Email = cliente.Email),
-    (TelefoneContato = cliente.TelefoneContato)
+    (TelefoneContato = cliente.TelContato)
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(

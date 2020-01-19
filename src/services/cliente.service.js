@@ -1,5 +1,8 @@
 const clienteRepository = require("../repositories/cliente.repository");
 //const bcrypt = require("bcrypt");
+const teste = (req, res) => {
+  res.send("ok");
+};
 
 const findAllClientes = async (req, res) => {
   try {
@@ -29,7 +32,7 @@ const createCliente = async (req, res) => {
     requestBody.CNPJ &&
     requestBody.NomeEmpresa &&
     requestBody.Email &&
-    requestBody.TelefoneContato
+    requestBody.TelContato
   ) {
     try {
       //const senhaEncriptada = encryptPassword(req.body.senha);
@@ -82,28 +85,28 @@ const updateCliente = async (req, res) => {
       error: "Campos Faltando"
     });
   }
+};
 
-  const deleteCliente = async (req, res) => {
-    try {
-      const id = req.params.id;
-      await clienteRepository.deleteOne(id);
+const deleteCliente = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await clienteRepository.deleteOne(id);
 
-      res.send({ msg: `Cliente com id ${id} deletado.` });
-    } catch (err) {
-      console.error(err);
-      res.sendStatus(500);
-    }
-  };
+    res.send({ msg: `Cliente com id ${id} deletado.` });
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
 
-  const encryptPassword = password => {
-    return bcrypt.hashSync(password, 10);
-  };
+const encryptPassword = password => {
+  return bcrypt.hashSync(password, 10);
+};
 
-  module.exports = {
-    findAllClientes,
-    findClienteById,
-    createCliente,
-    updateCliente,
-    deleteCliente
-  };
+module.exports = {
+  findAllClientes,
+  findClienteById,
+  createCliente,
+  updateCliente,
+  deleteCliente
 };
