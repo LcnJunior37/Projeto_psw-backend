@@ -1,9 +1,5 @@
 const clienteRepository = require("../repositories/cliente.repository");
 //const bcrypt = require("bcrypt");
-const teste = (req, res) => {
-  res.send("ok");
-};
-
 const findAllClientes = async (req, res) => {
   try {
     const result = await clienteRepository.findAll();
@@ -68,9 +64,6 @@ const updateCliente = async (req, res) => {
     requestBody.TelefoneContato
   ) {
     try {
-      if (requestBody.senha) {
-        requestBody.senha = hashPassword(requestBody.senha);
-      }
       const id = req.params.id;
       const dataToUpdate = requestBody;
       await clienteRepository.updateOne(id, dataToUpdate);
@@ -97,10 +90,6 @@ const deleteCliente = async (req, res) => {
     console.error(err);
     res.sendStatus(500);
   }
-};
-
-const encryptPassword = password => {
-  return bcrypt.hashSync(password, 10);
 };
 
 module.exports = {

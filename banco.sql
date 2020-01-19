@@ -77,30 +77,30 @@ INSERT INTO `cliente` VALUES (2,'3242.231324','tijolinho','tijolinho@potato.com'
 UNLOCK TABLES;
 
 --
--- Table structure for table `dirigiu`
+-- Table structure for table `dirigir`
 --
 
-DROP TABLE IF EXISTS `dirigiu`;
+DROP TABLE IF EXISTS `dirigir`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `dirigiu` (
-  `veiculo` int(11) DEFAULT NULL,
-  `motorista` int(11) DEFAULT NULL,
-  `Data` date DEFAULT NULL,
-  KEY `veiculo` (`veiculo`),
-  KEY `motorista` (`motorista`),
-  CONSTRAINT `dirigiu_ibfk_1` FOREIGN KEY (`veiculo`) REFERENCES `veiculo` (`codVeiculo`),
-  CONSTRAINT `dirigiu_ibfk_2` FOREIGN KEY (`motorista`) REFERENCES `motorista` (`codmotorista`)
+CREATE TABLE `dirigir` (
+  `codDirigiu` int(11) NOT NULL,
+  `motorista` int(11) NOT NULL,
+  `veiculo` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  PRIMARY KEY (`codDirigiu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dirigiu`
+-- Dumping data for table `dirigir`
 --
 
-LOCK TABLES `dirigiu` WRITE;
-/*!40000 ALTER TABLE `dirigiu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dirigiu` ENABLE KEYS */;
+LOCK TABLES `dirigir` WRITE;
+/*!40000 ALTER TABLE `dirigir` DISABLE KEYS */;
+INSERT INTO `dirigir` VALUES (2,1,2,'2019-12-11','09:00:00'),(3,2,1,'2019-12-12','09:00:00'),(4,3,3,'2019-12-10','09:00:00'),(5,3,2,'2019-12-11','09:00:00'),(6,4,2,'2019-12-12','09:00:00');
+/*!40000 ALTER TABLE `dirigir` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -287,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-01-19 14:14:41
+-- Dump completed on 2020-01-19 19:01:38

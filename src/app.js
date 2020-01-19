@@ -2,6 +2,7 @@ const routesUser = require("./routes/user.router");
 const routesVehicle = require("./routes/vehicle.router");
 const routesCliente = require("./routes/cliente.router");
 const routesEndereco = require("./routes/endereco.router");
+const routesDirigiu = require("./routes/dirigiu.router");
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
@@ -34,8 +35,8 @@ app.use((req, res, next) => {
 app.use("/", routesUser);
 app.use("/", routesVehicle);
 app.use("/", routesCliente);
-
 app.use("/", routesEndereco);
+app.use("/", routesDirigiu);
 app.use((req, res, next) => {
   res.status(404);
   res.send(ERRORS.NOT_FOUND);
