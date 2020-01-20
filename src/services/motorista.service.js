@@ -46,19 +46,35 @@ const createMotorista = async (req, res) => {
     requestBody.RG &&
     requestBody.Email &&
     requestBody.endereco &&
-    requestBody.TelefoneContato
+    requestBody.TelefoneContato &&
+    req.body.endereco.codEnd &&
+    req.body.endereco.logradouro &&
+    req.body.endereco.numero &&
+    req.body.endereco.cep &&
+    req.body.endereco.complemento &&
+    req.body.endereco.bairro
   ) {
     try {
+      const end = {
+        codEnd: req.body.endereco.codEnd,
+        logradouro: req.body.endereco.logradouro,
+        numero: req.body.endereco.numero,
+        cep: req.body.endereco.cep,
+        complemento: req.body.endereco.cep,
+        bairro: req.body.endereco.bairro
+      };
+      const resultEnd = await enderecoRepository.create(end);
       const mot = {
         codMotorista: req.body.codMotorista,
         nome: req.body.Nome,
         RG: req.body.RG,
         email: req.body.Email,
-        endereco: req.body.endereco,
+        endereco: req.body.endereco.codEnd,
         TelefoneContato: req.body.TelefoneContato
       };
 
       const result = await motoristaRepository.create(mot);
+      result.endereco = end;
       res.send(result);
     } catch (err) {
       console.error(err);
@@ -101,7 +117,10 @@ const updateMotorista = async (req, res) => {
 const deleteMotorista = async (req, res) => {
   try {
     const id = req.params.id;
+    let mot = await motoristaRepository.findById(id);
+
     await motoristaRepository.deleteOne(id);
+    await enderecoRepository.deleteOne(mot.endereco);
 
     res.send({ msg: `Motorista com id ${id} deletado.` });
   } catch (err) {

@@ -48,7 +48,7 @@ const create = motorista => {
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "insert into motorista (codMotorista,nome,RG,email,endereco,TelefoneContato)  VALUES (?)",
+      "insert into motorista (codMotorista,Nome,RG,Email,endereco,TelefoneContato)  VALUES (?)",
       [mot],
       (err, results) => {
         if (err) {
