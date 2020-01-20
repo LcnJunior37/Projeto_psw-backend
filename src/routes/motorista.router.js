@@ -1,4 +1,5 @@
 const motoristaService = require("../services/motorista.service");
+const EnderecoRouter = require("../services/endereco.service");
 const express = require("express");
 const motoristaRouter = express.Router();
 
@@ -17,6 +18,9 @@ EnderecoRouter.get(
   motoristaService.findMotoristaByEndereco
 );
 
-motoristaRouter.get("/motorista/endereco/:id", motoristaService.findMotoristaByEndereco);
+motoristaRouter.get(
+  "/motorista/endereco/:id",
+  motoristaService.findMotoristaByEndereco
+);
 
 module.exports = motoristaRouter;
