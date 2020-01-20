@@ -1,7 +1,13 @@
 const dirigiuRepository = require("../repositories/dirigiu.repository");
+const veiculoRepository = require("../repositories/vehicle.repository");
 const findAllDirigiu = async (req, res) => {
   try {
-    const result = await dirigiuRepository.findAll();
+    let result = await dirigiuRepository.findAll();
+    let i = 0;
+    for (i = 0; i < result.length; i++) {
+      let veh = await veiculoRepository.findById(result[i].veiculo);
+      result[i].veiculo = veh;
+    }
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -12,6 +18,10 @@ const findDirigiuById = async (req, res) => {
   try {
     const id = req.params.id;
     let result = await dirigiuRepository.findById(id);
+    let veh = await veiculoRepository.findById(result.veiculo);
+    result.veiculo = veh;
+    console.log(veh);
+    console.log(result);
     res.send(result);
   } catch (err) {
     console.error(err);
