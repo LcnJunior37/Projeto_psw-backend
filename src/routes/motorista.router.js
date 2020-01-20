@@ -1,5 +1,4 @@
 const motoristaService = require("../services/motorista.service");
-const EnderecoRouter = require("../services/endereco.service");
 const express = require("express");
 const motoristaRouter = express.Router();
 
@@ -12,11 +11,6 @@ motoristaRouter.post("/motorista", motoristaService.createMotorista);
 motoristaRouter.put("/motorista/:id", motoristaService.updateMotorista);
 
 motoristaRouter.delete("/motorista/:id", motoristaService.deleteMotorista);
-
-EnderecoRouter.get(
-  "/motorista/endereco/:id",
-  motoristaService.findMotoristaByEndereco
-);
 
 motoristaRouter.get(
   "/motorista/endereco/:id",

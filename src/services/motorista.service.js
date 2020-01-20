@@ -32,25 +32,23 @@ const createMotorista = async (req, res) => {
   const requestBody = req.body;
   if (
     requestBody.codMotorista &&
-    requestBody.nome &&
+    requestBody.Nome &&
     requestBody.RG &&
-    requestBody.email &&
+    requestBody.Email &&
     requestBody.endereco &&
     requestBody.TelefoneContato
   ) {
     try {
       const mot = {
-
         codMotorista: req.body.codMotorista,
-        nome: req.body.nome,
+        nome: req.body.Nome,
         RG: req.body.RG,
-        email: req.body.email,
+        email: req.body.Email,
         endereco: req.body.endereco,
         TelefoneContato: req.body.TelefoneContato
-
       };
 
-      const result = await motoristaRepository.create(dir);
+      const result = await motoristaRepository.create(mot);
       res.send(result);
     } catch (err) {
       console.error(err);
@@ -66,14 +64,12 @@ const createMotorista = async (req, res) => {
 const updateMotorista = async (req, res) => {
   const requestBody = req.body;
   if (
-
     requestBody.codMotorista ||
-    requestBody.nome ||
+    requestBody.Nome ||
     requestBody.RG ||
-    requestBody.email ||
+    requestBody.Email ||
     requestBody.endereco ||
     requestBody.TelefoneContato
-
   ) {
     try {
       const id = req.params.id;
@@ -105,12 +101,10 @@ const deleteMotorista = async (req, res) => {
 };
 
 module.exports = {
-    
   findAllMotorista,
   findMotoristaById,
   createMotorista,
   updateMotorista,
   deleteMotorista,
   findMotoristaByEndereco
-  
 };

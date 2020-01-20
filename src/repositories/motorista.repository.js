@@ -12,7 +12,7 @@ const findAll = () => {
 const findById = id => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "SELECT * FROM motorista where codEndereco = ?",
+      "SELECT * FROM motorista where codMotorista = ?",
       [id],
       (err, results) => {
         if (err) {
@@ -32,21 +32,19 @@ const findByEndereco = id => {
         if (err) {
           return reject(err);
         }
-        return resolve(results);
+        return resolve(results[0]);
       }
     );
   });
 };
 const create = motorista => {
   const mot = [
-
     (codMotorista = motorista.codMotorista),
     (nome = motorista.nome),
     (RG = motorista.RG),
-    (email = motorista.email)
-    (endereco = motorista.endereco)
+    (email = motorista.email),
+    (endereco = motorista.endereco),
     (TelefoneContato = motorista.TelefoneContato)
-
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
@@ -106,5 +104,5 @@ module.exports = {
   create,
   updateOne,
   deleteOne,
-  findByMotorista,
+  findByEndereco
 };
