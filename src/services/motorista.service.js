@@ -1,7 +1,13 @@
 const motoristaRepository = require("../repositories/motorista.repository");
+const enderecoRepository = require("../repositories/endereco.repository");
 const findAllMotorista = async (req, res) => {
   try {
-    const result = await motoristaRepository.findAll();
+    let result = await motoristaRepository.findAll();
+    let i = 0;
+    for (i = 0; i < result.length; i++) {
+      let mot = await enderecoRepository.findById(result[i].endereco);
+      result[i].endereco = mot;
+    }
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -12,6 +18,10 @@ const findMotoristaById = async (req, res) => {
   try {
     const id = req.params.id;
     let result = await motoristaRepository.findById(id);
+    let mot = await enderecoRepository.findById(result.endereco);
+    result.endereco = mot;
+    console.log(mot);
+    console.log(result);
     res.send(result);
   } catch (err) {
     console.error(err);
