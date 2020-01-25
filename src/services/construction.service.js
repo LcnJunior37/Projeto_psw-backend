@@ -1,12 +1,15 @@
 const constructRepository = require("../repositories/construction.repository");
-//const bcrypt = require("bcrypt");
-const teste = (req, res) => {
-  res.send("ok");
-};
+const enderecoRepository = require("../repositories/endereco.repository");
+const clienteRepository = require("../repositories/cliente.repository");
 
 const findAllConstructions = async (req, res) => {
   try {
-    const result = await constructRepository.findAll();
+    let result = await constructRepository.findAll();
+    let i = 0;
+    for (i = 0; i < result.length; i++) {
+      let obr = await enderecoRepository.findById(result[i].endereco);
+      result[i].endereco = obr;
+    }
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -18,6 +21,21 @@ const findConstructionById = async (req, res) => {
   try {
     const id = req.params.id;
     let result = await constructRepository.findById(id);
+    let obr = await enderecoRepository.findById(result.endereco);
+    result.endereco = obr;
+    console.log(obr);
+    console.log(result);
+    res.send(result);
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+const findConstructionByEndereco = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let result = await constructionRepository.findByEndereco(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -30,18 +48,31 @@ const createConstruction = async (req, res) => {
   if (
     requestBody.codObra &&
     requestBody.endereco &&
-    requestBody.cliente
+    requestBody.cliente &&
+    req.body.endereco.codEnd &&
+    req.body.endereco.logradouro &&
+    req.body.endereco.numero &&
+    req.body.endereco.cep &&
+    req.body.endereco.complemento &&
+    req.body.endereco.bairro
   ) {
     try {
-      //const senhaEncriptada = encryptPassword(req.body.senha);
-
+      const end = {
+        codEnd: req.body.endereco.codEnd,
+        logradouro: req.body.endereco.logradouro,
+        numero: req.body.endereco.numero,
+        cep: req.body.endereco.cep,
+        complemento: req.body.endereco.cep,
+        bairro: req.body.endereco.bairro
+      };
+      const resultEnd = await enderecoRepository.create(end);
       const obr = {
         codObra: req.body.codObra,
         endereco: req.body.endereco,
         cliente: req.body.cliente
       };
-
-      const result = await constructRepository.create(obr);
+      const result = await motoristaRepository.create(obr);
+      result.endereco = end;
       res.send(result);
     } catch (err) {
       console.error(err);
@@ -93,13 +124,10 @@ const deleteConstruction = async (req, res) => {
   }
 };
 
-const encryptPassword = password => {
-  return bcrypt.hashSync(password, 10);
-};
-
 module.exports = {
     findAllConstructions,
     findConstructionById,
+    findConstructionByEndereco,
     createConstruction,
     updateConstruction,
     deleteConstruction

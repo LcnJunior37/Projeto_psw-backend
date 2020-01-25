@@ -26,6 +26,21 @@ const findById = id => {
   });
 };
 
+const findByEndereco = id => {
+  return new Promise((resolve, reject) => {
+    databaseService.query(
+      "SELECT * FROM obra where endereco = ?",
+      [id],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results[0]);
+      }
+    );
+  });
+};
+
 const create = obra => {
   const construction = [
     (codObra = obra.codObra),
@@ -90,6 +105,7 @@ const deleteOne = async id => {
 module.exports = {
   findAll,
   findById,
+  findByEndereco,
   create,
   updateOne,
   deleteOne

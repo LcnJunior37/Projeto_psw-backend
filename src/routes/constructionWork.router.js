@@ -6,6 +6,8 @@ constructionRouter.get("/construction", constructionService.findAllConstructions
 
 constructionRouter.get("/construction/:id",  constructionService.findConstructionById);
 
+constructionRouter.get("/construction/endereco/:id", constructionService.findConstructionByEndereco);
+
 constructionRouter.post("/construction",  constructionService.createConstruction);
 
 constructionRouter.put("/construction/:id",  constructionService.updateConstruction);
