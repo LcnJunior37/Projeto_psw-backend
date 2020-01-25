@@ -39,7 +39,7 @@ const findConstructionById = async (req, res) => {
 const findConstructionByEndereco = async (req, res) => {
   try {
     const id = req.params.id;
-    let result = await constructionRepository.findByEndereco(id);
+    let result = await constructRepository.findByEndereco(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -48,14 +48,11 @@ const findConstructionByEndereco = async (req, res) => {
 };
 
 const findContstructionByClient = async (req, res) => {
-  try 
-  {
+  try {
     const id = req.params.id;
-    let result = await constructionRepository.findByClient(id);
+    let result = await constructRepository.findByClient(id);
     res.send(result);
-  } 
-  catch (err)
-  {
+  } catch (err) {
     console.error(err);
     res.sendStatus(500);
   }
@@ -86,10 +83,10 @@ const createConstruction = async (req, res) => {
       const resultEnd = await enderecoRepository.create(end);
       const obr = {
         codObra: req.body.codObra,
-        endereco: req.body.endereco,
+        endereco: req.body.endereco.codEnd,
         cliente: req.body.cliente
       };
-      const result = await motoristaRepository.create(obr);
+      const result = await constructRepository.create(obr);
       result.endereco = end;
       res.send(result);
     } catch (err) {
@@ -105,15 +102,8 @@ const createConstruction = async (req, res) => {
 
 const updateConstruction = async (req, res) => {
   const requestBody = req.body;
-  if (
-    requestBody.codObra ||
-    requestBody.endereco ||
-    requestBody.cliente
-  ) {
+  if (requestBody.codObra || requestBody.endereco || requestBody.cliente) {
     try {
-      if (requestBody.senha) {
-        requestBody.senha = hashPassword(requestBody.senha);
-      }
       const id = req.params.id;
       const dataToUpdate = requestBody;
       await constructRepository.updateOne(id, dataToUpdate);
@@ -143,11 +133,11 @@ const deleteConstruction = async (req, res) => {
 };
 
 module.exports = {
-    findAllConstructions,
-    findConstructionById,
-    findConstructionByEndereco,
-    findContstructionByClient,
-    createConstruction,
-    updateConstruction,
-    deleteConstruction
+  findAllConstructions,
+  findConstructionById,
+  findConstructionByEndereco,
+  findContstructionByClient,
+  createConstruction,
+  updateConstruction,
+  deleteConstruction
 };

@@ -14,7 +14,7 @@ const findAll = () => {
 const findById = id => {
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "SELECT * FROM cliente where codObra = ?",
+      "SELECT * FROM obra where codObra = ?",
       [id],
       (err, results) => {
         if (err) {
