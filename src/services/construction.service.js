@@ -8,7 +8,9 @@ const findAllConstructions = async (req, res) => {
     let i = 0;
     for (i = 0; i < result.length; i++) {
       let obr = await enderecoRepository.findById(result[i].endereco);
+      let cli = await clienteRepository.findById(result[i].cliente);
       result[i].endereco = obr;
+      result[i].cliente = cli;
     }
     res.send(result);
   } catch (err) {
@@ -22,6 +24,8 @@ const findConstructionById = async (req, res) => {
     const id = req.params.id;
     let result = await constructRepository.findById(id);
     let obr = await enderecoRepository.findById(result.endereco);
+    let cli = await clienteRepository.findById(result.cliente);
+    result.cliente = cli;
     result.endereco = obr;
     console.log(obr);
     console.log(result);
@@ -38,6 +42,20 @@ const findConstructionByEndereco = async (req, res) => {
     let result = await constructionRepository.findByEndereco(id);
     res.send(result);
   } catch (err) {
+    console.error(err);
+    res.sendStatus(500);
+  }
+};
+
+const findContstructionByClient = async (req, res) => {
+  try 
+  {
+    const id = req.params.id;
+    let result = await constructionRepository.findByClient(id);
+    res.send(result);
+  } 
+  catch (err)
+  {
     console.error(err);
     res.sendStatus(500);
   }
@@ -128,6 +146,7 @@ module.exports = {
     findAllConstructions,
     findConstructionById,
     findConstructionByEndereco,
+    findContstructionByClient,
     createConstruction,
     updateConstruction,
     deleteConstruction

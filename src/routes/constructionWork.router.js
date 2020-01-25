@@ -8,6 +8,8 @@ constructionRouter.get("/construction/:id",  constructionService.findConstructio
 
 constructionRouter.get("/construction/endereco/:id", constructionService.findConstructionByEndereco);
 
+constructionRouter.get("/construction/client/:id", constructionService.findContstructionByClient);
+
 constructionRouter.post("/construction",  constructionService.createConstruction);
 
 constructionRouter.put("/construction/:id",  constructionService.updateConstruction);

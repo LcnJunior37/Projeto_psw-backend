@@ -41,6 +41,21 @@ const findByEndereco = id => {
   });
 };
 
+const findByClient = id => {
+  return new Promise((resolve, reject) => {
+    databaseService.query(
+      "SELECT * FROM obra where cliente = ?",
+      [id],
+      (err, results) => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve(results[0]);
+      }
+    );
+  });
+};
+
 const create = obra => {
   const construction = [
     (codObra = obra.codObra),
@@ -106,6 +121,7 @@ module.exports = {
   findAll,
   findById,
   findByEndereco,
+  findByClient,
   create,
   updateOne,
   deleteOne
