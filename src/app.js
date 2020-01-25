@@ -42,7 +42,6 @@ app.use("/", routesEndereco);
 app.use("/", routesEndereco);
 app.use("/", routesDirigiu);
 app.use("/", routesMotorista);
-
 app.use((req, res, next) => {
   res.status(404);
   res.send(ERRORS.NOT_FOUND);
