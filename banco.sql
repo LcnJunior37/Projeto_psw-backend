@@ -63,7 +63,7 @@ CREATE TABLE `cliente` (
   `Email` varchar(50) DEFAULT NULL,
   `TelContato` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`codCliente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,34 +72,35 @@ CREATE TABLE `cliente` (
 
 LOCK TABLES `cliente` WRITE;
 /*!40000 ALTER TABLE `cliente` DISABLE KEYS */;
+INSERT INTO `cliente` VALUES (2,'3242.231324','tijolinho','tijolinho@potato.com','212345678'),(3,'211111','Gotinha2','Gotinha2@potato.com','12331'),(4,'23123123','peninha','peninha@potato.com','12313');
 /*!40000 ALTER TABLE `cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `dirigiu`
+-- Table structure for table `dirigir`
 --
 
-DROP TABLE IF EXISTS `dirigiu`;
+DROP TABLE IF EXISTS `dirigir`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
-CREATE TABLE `dirigiu` (
-  `veiculo` int(11) DEFAULT NULL,
-  `motorista` int(11) DEFAULT NULL,
-  `Data` date DEFAULT NULL,
-  KEY `veiculo` (`veiculo`),
-  KEY `motorista` (`motorista`),
-  CONSTRAINT `dirigiu_ibfk_1` FOREIGN KEY (`veiculo`) REFERENCES `veiculo` (`codveiculo`),
-  CONSTRAINT `dirigiu_ibfk_2` FOREIGN KEY (`motorista`) REFERENCES `motorista` (`codmotorista`)
+CREATE TABLE `dirigir` (
+  `codDirigiu` int(11) NOT NULL,
+  `motorista` int(11) NOT NULL,
+  `veiculo` int(11) NOT NULL,
+  `data` date NOT NULL,
+  `hora` time NOT NULL,
+  PRIMARY KEY (`codDirigiu`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dirigiu`
+-- Dumping data for table `dirigir`
 --
 
-LOCK TABLES `dirigiu` WRITE;
-/*!40000 ALTER TABLE `dirigiu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dirigiu` ENABLE KEYS */;
+LOCK TABLES `dirigir` WRITE;
+/*!40000 ALTER TABLE `dirigir` DISABLE KEYS */;
+INSERT INTO `dirigir` VALUES (2,1,2,'2019-12-11','09:00:00'),(3,2,1,'2019-12-12','09:00:00'),(4,3,3,'2019-12-10','09:00:00'),(5,3,2,'2019-12-11','09:00:00'),(6,4,2,'2019-12-12','09:00:00');
+/*!40000 ALTER TABLE `dirigir` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -117,7 +118,7 @@ CREATE TABLE `endereco` (
   `complemento` varchar(10) DEFAULT NULL,
   `bairro` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`codEnd`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -126,6 +127,7 @@ CREATE TABLE `endereco` (
 
 LOCK TABLES `endereco` WRITE;
 /*!40000 ALTER TABLE `endereco` DISABLE KEYS */;
+INSERT INTO `endereco` VALUES (1,'AAb','57ss732','52.234-345','52.234-345','xsdxxx'),(2,'yy','564','25.235-568','25.235-568','vila da folha'),(3,'AA','577','52.234-213','52.234-213','xxxx');
 /*!40000 ALTER TABLE `endereco` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -225,9 +227,9 @@ CREATE TABLE `usuario` (
   `codUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(30) NOT NULL,
   `nome` varchar(20) DEFAULT NULL,
-  `senha` varchar(100) DEFAULT NULL,
+  `senha` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`codUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +238,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Administrador','master','123456'),(2,'Administrador','test1','123456');
+INSERT INTO `usuario` VALUES (1,'Administrador','master','123456'),(2,'Administrador','test1','123456'),(3,'Administrador','teste002','abc123'),(4,'Administrador','teste003','abc124'),(5,'Administrador','teste006','abc124');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,12 +251,13 @@ DROP TABLE IF EXISTS `veiculo`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `veiculo` (
   `codVeiculo` int(11) NOT NULL AUTO_INCREMENT,
-  `Placa` varchar(100) DEFAULT NULL,
-  `Modelo` varchar(50) DEFAULT NULL,
+  `Placa` varchar(100) NOT NULL,
+  `Modelo` varchar(50) NOT NULL,
   `Ano` year(4) NOT NULL,
-  `Tipo` varchar(20) NOT NULL,
+  `Tipo` varchar(15) NOT NULL,
+  `Capacidade` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codVeiculo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,6 +266,7 @@ CREATE TABLE `veiculo` (
 
 LOCK TABLES `veiculo` WRITE;
 /*!40000 ALTER TABLE `veiculo` DISABLE KEYS */;
+INSERT INTO `veiculo` VALUES (2,'cba123','celta',1997,'C','4m'),(3,'cbe321','fusca',1998,'M','0'),(4,'cbdf456','chevete',1998,'M','0');
 /*!40000 ALTER TABLE `veiculo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -283,4 +287,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-08 21:55:10
+-- Dump completed on 2020-01-19 19:01:38

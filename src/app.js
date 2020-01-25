@@ -3,6 +3,8 @@ const routesVehicle = require("./routes/vehicle.router");
 const routesCliente = require("./routes/cliente.router");
 const routesEndereco = require("./routes/endereco.router");
 const routesConstructions = require("./routes/constructionWork.router");
+const routesDirigiu = require("./routes/dirigiu.router");
+const routesMotorista = require("./routes/motorista.router");
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
@@ -37,6 +39,9 @@ app.use("/", routesVehicle);
 app.use("/", routesCliente);
 app.use("/", routesConstructions);
 app.use("/", routesEndereco);
+app.use("/", routesEndereco);
+app.use("/", routesDirigiu);
+app.use("/", routesMotorista);
 
 app.use((req, res, next) => {
   res.status(404);
