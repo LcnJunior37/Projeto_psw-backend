@@ -2,15 +2,44 @@ const dirigiuRepository = require("../repositories/dirigiu.repository");
 const alocacaoRepository = require("../repositories/alocacao.repository");
 const clienteRepository = require("../repositories/cliente.repository");
 const constructionRepository = require("../repositories/construction.repository");
+const dARepository = require("../repositories/dirigiuAlocacao.repository");
 
+const getAllDirigiuByAlocacao = async id => {
+  console.log("---------------------------------------------");
+  let arrayDirigiu = {
+    Dirigius: []
+  };
+  let r = await dARepository.findById(id);
+
+  for (let i = 0; i < r.length; i++) {
+    console.log("***************************************");
+    //console.log(r[i]);
+    let dir = await dirigiuRepository.findById(r[i].codDirigiu);
+
+    console.log(dir);
+    /*  let aux = {
+      codDirigiu: dir.codDirigiu,
+      motorista: dir.motorista,
+      veiculo: dir.veiculo,
+      data: dir.data,
+      hora: dir.hora
+    }; */
+    let aux = JSON.stringify(dir);
+    arrayDirigiu.Dirigius += aux.split().join();
+    // console.log(arrayDirigiu);
+  }
+
+  return arrayDirigiu;
+};
 const findAllAlocacao = async (req, res) => {
   try {
     let result = await alocacaoRepository.findAll();
     let i = 0;
     for (i = 0; i < result.length; i++) {
-      let dir = await dirigiuRepository.findById(result[i].dirigiu);
+      let dir = await getAllDirigiuByAlocacao(result[i].codAlocacao);
       let cli = await clienteRepository.findById(result[i].cliente);
       let obr = await constructionRepository.findById(result[i].obra);
+      console.log(dir);
       result[i].dirigiu = dir;
       result[i].cliente = cli;
       result[i].obra = obr;
@@ -25,7 +54,7 @@ const findAlocacaoById = async (req, res) => {
   try {
     const id = req.params.id;
     let result = await alocacaoRepository.findById(id);
-    let dir = await dirigiuRepository.findById(result.dirigiu);
+    let dir = await getAllDirigiuByAlocacao(result.dirigiu);
     let cli = await clienteRepository.findById(result.cliente);
     let obr = await constructionRepository.findById(result.obra);
     result.dirigiu = dir;

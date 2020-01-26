@@ -1,6 +1,7 @@
 const dirigiuRepository = require("../repositories/dirigiu.repository");
 const veiculoRepository = require("../repositories/vehicle.repository");
 const motoristaRepository = require("../repositories/motorista.repository");
+const dARepository = require("../repositories/dirigiuAlocacao.repository");
 const findAllDirigiu = async (req, res) => {
   try {
     let result = await dirigiuRepository.findAll();
@@ -72,6 +73,13 @@ const createDirigiu = async (req, res) => {
       };
 
       const result = await dirigiuRepository.create(dir);
+      if (requestBody.codAlocacao) {
+        dA = {
+          codDirigiu: req.body.codDirigiu,
+          codAlocacao: req.body.codAlocacao
+        };
+        let r = await dARepository.create(dA);
+      }
       res.send(result);
     } catch (err) {
       console.error(err);
