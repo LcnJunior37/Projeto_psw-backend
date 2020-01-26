@@ -39,7 +39,7 @@ const create = dirigiu_Alo => {
         if (err) {
           return reject(err);
         }
-        return resolve(cliente);
+        return resolve(dA);
       }
     );
   });

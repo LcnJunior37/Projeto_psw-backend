@@ -6,6 +6,13 @@ alocacaoRouter.get("/alocacao", alocacaoService.findAllAlocacao);
 
 alocacaoRouter.get("/alocacao/:id", alocacaoService.findAlocacaoById);
 
+alocacaoRouter.get("/alocacao/obra/:id", alocacaoService.findAllAlocacaoByObra);
+
+alocacaoRouter.get(
+  "/alocacao/cliente/:id",
+  alocacaoService.findAllAlocacaoByCliente
+);
+
 alocacaoRouter.post("/alocacao", alocacaoService.createAlocacao);
 
 alocacaoRouter.put("/alocacao/:id", alocacaoService.updateAlocacao);

@@ -58,12 +58,11 @@ const create = alocacao => {
     (obra = alocacao.obra),
     (valor = alocacao.valor),
     (dataInicio = alocacao.dataInicio),
-    (dataFim = alocacao.dataFim),
-    (dirigiu = alocacao.dirigiu)
+    (dataFim = alocacao.dataFim)
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "insert into alocacao (codAlocacao, cliente, obra, valor, dataInicio, dataFim, dirigiu)  VALUES (?)",
+      "insert into alocacao (codAlocacao, cliente, obra, valor, dataInicio, dataFim)  VALUES (?)",
       [alo],
       (err, results) => {
         if (err) {
