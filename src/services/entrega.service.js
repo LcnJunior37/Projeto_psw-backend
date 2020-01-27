@@ -32,10 +32,10 @@ const findShipmentById = async (req, res) => {
   }
 };
 
-const findShipmentByConstruction = async (req, res) => { // TODO: Mudar metodo para buscar por Obra
+const findShipmentByConstruction = async (req, res) => {
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByEndereco(id);
+    let result = await constructRepository.findByConstruction(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -43,10 +43,11 @@ const findShipmentByConstruction = async (req, res) => { // TODO: Mudar metodo p
   }
 };
 
-const findShipmentByDriver = async (req, res) => { // TODO: Mudar metodo para buscar por motorista
+
+const findShipmentByDriver = async (req, res) => {
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByClient(id);
+    let result = await motoristaRepository.findByEndereco(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -54,10 +55,10 @@ const findShipmentByDriver = async (req, res) => { // TODO: Mudar metodo para bu
   }
 };
 
-const findShipmentByDirigiu = async (req, res) => { // TODO: Mudar metodo para buscar por dirigiu
+const findShipmentByDirigiu = async (req, res) => { 
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByClient(id);
+    let result = await dirigiuRepository.findByDirigiu(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -65,7 +66,7 @@ const findShipmentByDirigiu = async (req, res) => { // TODO: Mudar metodo para b
   }
 };
 
-const createShipment = async (req, res) => { // TODO
+const createShipment = async (req, res) => { 
   const requestBody = req.body;
   if (
     requestBody.codObra &&
@@ -107,7 +108,7 @@ const createShipment = async (req, res) => { // TODO
   }
 };
 
-const updateShipment = async (req, res) => { // TODO
+const updateShipment = async (req, res) => { 
   const requestBody = req.body;
   if (requestBody.codObra || requestBody.endereco || requestBody.cliente) {
     try {
@@ -127,7 +128,7 @@ const updateShipment = async (req, res) => { // TODO
   }
 };
 
-const deleteShipment = async (req, res) => { // TODO
+const deleteShipment = async (req, res) => { 
   try {
     const id = req.params.id;
     await constructRepository.deleteOne(id);
@@ -139,7 +140,7 @@ const deleteShipment = async (req, res) => { // TODO
   }
 };
 
-module.exports = { // TODO
+module.exports = { 
   findAllShipments,
   findShipmentById,
   findShipmentByConstruction,
