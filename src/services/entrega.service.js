@@ -35,10 +35,13 @@ const findShipmentById = async (req, res) => {
 };
 
 const findShipmentByConstruction = async (req, res) => {
+<<<<<<< HEAD
   // TODO: Mudar metodo para buscar por Obra
+=======
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByEndereco(id);
+    let result = await constructRepository.findByConstruction(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -46,23 +49,33 @@ const findShipmentByConstruction = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 /* const findShipmentByDriver = async (req, res) => {
   // TODO: Mudar metodo para buscar por motorista
+=======
+
+const findShipmentByDriver = async (req, res) => {
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByClient(id);
+    let result = await motoristaRepository.findByEndereco(id);
     res.send(result);
   } catch (err) {
     console.error(err);
     res.sendStatus(500);
   }
 };
+<<<<<<< HEAD
  */
 const findShipmentByDirigiu = async (req, res) => {
   // TODO: Mudar metodo para buscar por dirigiu
+=======
+
+const findShipmentByDirigiu = async (req, res) => { 
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByClient(id);
+    let result = await dirigiuRepository.findByDirigiu(id);
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -70,8 +83,12 @@ const findShipmentByDirigiu = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const createShipment = async (req, res) => {
   // TODO
+=======
+const createShipment = async (req, res) => { 
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   const requestBody = req.body;
   if (
     requestBody.codObra &&
@@ -113,8 +130,12 @@ const createShipment = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const updateShipment = async (req, res) => {
   // TODO
+=======
+const updateShipment = async (req, res) => { 
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   const requestBody = req.body;
   if (requestBody.codObra || requestBody.endereco || requestBody.cliente) {
     try {
@@ -134,8 +155,12 @@ const updateShipment = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 const deleteShipment = async (req, res) => {
   // TODO
+=======
+const deleteShipment = async (req, res) => { 
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   try {
     const id = req.params.id;
     await constructRepository.deleteOne(id);
@@ -147,8 +172,12 @@ const deleteShipment = async (req, res) => {
   }
 };
 
+<<<<<<< HEAD
 module.exports = {
   // TODO
+=======
+module.exports = { 
+>>>>>>> c19e33571dd0926a8b86b1a03330c39e243000c4
   findAllShipments,
   findShipmentById,
   findShipmentByConstruction,
