@@ -9,6 +9,8 @@ const findAllShipments = async (req, res) => {
     for (i = 0; i < result.length; i++) {
       let dir = await dirigiuRepository.findById(result[i].dirigiu);
       result[i].dirigiu = dir;
+      let obr = await constructRepository.findById(result[i].obra);
+      result[i].obra = obr;
     }
     res.send(result);
   } catch (err) {
@@ -23,6 +25,8 @@ const findShipmentById = async (req, res) => {
     let result = await shipmentRepository.findById(id);
     let dir = await dirigiuRepository.findById(result.dirigiu);
     result.dirigiu = dir;
+    let obr = await constructRepository.findById(result.obra);
+    result.obra = obr;
     console.log(dir);
     console.log(result);
     res.send(result);
