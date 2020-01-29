@@ -66,7 +66,7 @@ const create = entrega => {
   ];
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "INSERT INTO obra (codEntrega, obra, valor, dirigiu, motorista) VALUES (?)",
+      "INSERT INTO entrega (codEntrega, obra, valor, dirigiu) VALUES (?)",
       [delivery],
       (err, results) => {
         if (err) {
