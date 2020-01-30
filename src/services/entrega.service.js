@@ -22,7 +22,9 @@ const findAllShipments = async (req, res) => {
 const findShipmentById = async (req, res) => {
   try {
     const id = req.params.id;
+
     let result = await shipmentRepository.findById(id);
+    console.log(id);
     let dir = await dirigiuRepository.findById(result.dirigiu);
     result.dirigiu = dir;
     let obr = await constructRepository.findById(result.obra);
@@ -39,7 +41,14 @@ const findShipmentById = async (req, res) => {
 const findShipmentByConstruction = async (req, res) => {
   try {
     const id = req.params.id;
-    let result = await constructRepository.findByConstruction(id);
+    let result = await shipmentRepository.findByConstruction(id);
+    let i = 0;
+    for (i = 0; i < result.length; i++) {
+      let dir = await dirigiuRepository.findById(result[i].dirigiu);
+      result[i].dirigiu = dir;
+      let obr = await constructRepository.findById(result[i].obra);
+      result[i].obra = obr;
+    }
     res.send(result);
   } catch (err) {
     console.error(err);
@@ -72,34 +81,34 @@ const findShipmentByDirigiu = async (req, res) => {
 const createShipment = async (req, res) => {
   const requestBody = req.body;
   if (
-    requestBody.codObra &&
-    requestBody.endereco &&
-    requestBody.cliente &&
-    req.body.endereco.codEnd &&
-    req.body.endereco.logradouro &&
-    req.body.endereco.numero &&
-    req.body.endereco.cep &&
-    req.body.endereco.complemento &&
-    req.body.endereco.bairro
+    requestBody.codEntrega &&
+    requestBody.obra &&
+    requestBody.valor &&
+    requestBody.dirigiu.motorista &&
+    requestBody.dirigiu.veiculo &&
+    requestBody.dirigiu.data &&
+    requestBody.dirigiu.codDirigiu &&
+    requestBody.dirigiu.hora
   ) {
     try {
-      const end = {
-        codEnd: req.body.endereco.codEnd,
-        logradouro: req.body.endereco.logradouro,
-        numero: req.body.endereco.numero,
-        cep: req.body.endereco.cep,
-        complemento: req.body.endereco.cep,
-        bairro: req.body.endereco.bairro
+      const entr = {
+        codEntrega: req.body.codEntrega,
+        obra: req.body.obra,
+        valor: req.body.valor,
+        dirigiu: req.body.dirigiu.codDirigiu
       };
-      const resultEnd = await enderecoRepository.create(end);
-      const obr = {
-        codObra: req.body.codObra,
-        endereco: req.body.endereco.codEnd,
-        cliente: req.body.cliente
+
+      const dir = {
+        motorista: req.body.dirigiu.motorista,
+        veiculo: req.body.dirigiu.veiculo,
+        data: req.body.dirigiu.data,
+        codDirigiu: req.body.dirigiu.codDirigiu,
+        hora: req.body.dirigiu.hora
       };
-      const result = await constructRepository.create(obr);
-      result.endereco = end;
-      res.send(result);
+      const dirResult = await dirigiuRepository.create(dir);
+      const result = await shipmentRepository.create(entr);
+
+      res.send({ msg: `incluido com sucesso` });
     } catch (err) {
       console.error(err);
       res.sendStatus(500);
@@ -113,11 +122,20 @@ const createShipment = async (req, res) => {
 
 const updateShipment = async (req, res) => {
   const requestBody = req.body;
-  if (requestBody.codObra || requestBody.endereco || requestBody.cliente) {
+  if (
+    requestBody.codEntrega ||
+    requestBody.obra ||
+    requestBody.dirigiu.motorista ||
+    requestBody.dirigiu.veiculo ||
+    requestBody.dirigiu.data ||
+    requestBody.dirigiu.veiculo ||
+    requestBody.dirigiu.codDirigiu ||
+    requestBody.dirigiu.hora
+  ) {
     try {
       const id = req.params.id;
       const dataToUpdate = requestBody;
-      await constructRepository.updateOne(id, dataToUpdate);
+      await shipmentRepository.updateOne(id, dataToUpdate);
 
       res.status(200).send(dataToUpdate);
     } catch (err) {
@@ -134,9 +152,12 @@ const updateShipment = async (req, res) => {
 const deleteShipment = async (req, res) => {
   try {
     const id = req.params.id;
-    await constructRepository.deleteOne(id);
+    let result = await shipmentRepository.findById(id);
 
-    res.send({ msg: `Obra com id ${id} deletado.` });
+    await shipmentRepository.deleteOne(id);
+    await dirigiuRepository.deleteOne(result.dirigiu);
+
+    res.send({ msg: `entrega com id ${id} deletado.` });
   } catch (err) {
     console.error(err);
     res.sendStatus(500);

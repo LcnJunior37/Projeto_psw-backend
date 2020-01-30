@@ -35,7 +35,7 @@ const findByConstruction = id => {
         if (err) {
           return reject(err);
         }
-        return resolve(results[0]);
+        return resolve(results);
       }
     );
   });
@@ -61,13 +61,14 @@ const create = entrega => {
     (codEntrega = entrega.codEntrega),
     (obra = entrega.obra),
     (valor = entrega.valor),
-    (dirigiu = entrega.dirigiu),
-    (motorista = entrega.valor)
+    (dirigiu = entrega.dirigiu)
   ];
+  console.log(delivery);
   return new Promise((resolve, reject) => {
     databaseService.query(
-      "INSERT INTO entrega (codEntrega, obra, valor, dirigiu) VALUES (?)",
+      "INSERT INTO entrega (codEntrega,obra,valor, dirigiu) VALUES (?)",
       [delivery],
+
       (err, results) => {
         if (err) {
           return reject(err);
