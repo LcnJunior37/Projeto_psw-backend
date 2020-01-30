@@ -6,6 +6,7 @@ const routesConstructions = require("./routes/constructionWork.router");
 const routesDirigiu = require("./routes/dirigiu.router");
 const routesMotorista = require("./routes/motorista.router");
 const routesAlocacao = require("./routes/alocacao.router");
+const routesEntrega = require("./routes/entrega.router");
 const bodyParser = require("body-parser");
 const express = require("express");
 const app = express();
@@ -44,6 +45,7 @@ app.use("/", routesEndereco);
 app.use("/", routesDirigiu);
 app.use("/", routesMotorista);
 app.use("/", routesAlocacao);
+app.use("/", routesEntrega);
 app.use((req, res, next) => {
   res.status(404);
   res.send(ERRORS.NOT_FOUND);
