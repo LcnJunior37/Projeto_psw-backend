@@ -11,7 +11,7 @@ entregaRoute.get(
   entregaService.findShipmentByConstruction
 );
 
-entregaRoute.get("/entrega/dirigiu/:id", entregaService.findShipmentByDirigiu);
+/* entregaRoute.get("/entrega/dirigiu/:id", entregaService.findShipmentByDirigiu); */
 
 entregaRoute.post("/entrega", entregaService.createShipment);
 
