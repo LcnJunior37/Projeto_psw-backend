@@ -60,22 +60,23 @@ const createDirigiu = async (req, res) => {
     requestBody.motorista &&
     requestBody.veiculo &&
     requestBody.data &&
-    requestBody.codDirigiu &&
     requestBody.hora
   ) {
     try {
+      let all = await dirigiuRepository.findAll();
+      let cod = all.length + 100;
       const dir = {
         motorista: req.body.motorista,
         veiculo: req.body.veiculo,
         data: req.body.data,
-        codDirigiu: req.body.codDirigiu,
+        codDirigiu: cod,
         hora: req.body.hora
       };
 
       const result = await dirigiuRepository.create(dir);
       if (requestBody.codAlocacao) {
         dA = {
-          codDirigiu: req.body.codDirigiu,
+          codDirigiu: cod,
           codAlocacao: req.body.codAlocacao
         };
         let r = await dARepository.create(dA);
